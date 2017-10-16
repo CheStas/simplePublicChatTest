@@ -3,16 +3,27 @@ const sendButton = document.getElementsByClassName('send')[0],
     postsWrap = document.getElementsByClassName('posts')[0],
     username = document.getElementsByClassName('username')[0],
     message = document.getElementsByClassName('message')[0];
+errorText = document.getElementsByClassName('error')[0];
 
 sendButton.addEventListener('click', () => {
     sendMessage();
 })
+
+window.onload = () => {
+    getPosts();
+}
 
 reloadButton.addEventListener('click', () => {
     getPosts();
 })
 
 username.addEventListener('keypress', function (e) {
+    if (e.keyCode === 13) {
+        sendMessage();
+    }
+})
+
+message.addEventListener('keypress', function (e) {
     if (e.keyCode === 13) {
         sendMessage();
     }
@@ -31,6 +42,7 @@ function getPosts() {
 }
 
 function sendMessage() {
+    errorText.style.display = 'none';
     if (message.value.length > 0 && username.value.length > 0) {
         ajaxRequest({
             method: 'POST',
@@ -42,10 +54,10 @@ function sendMessage() {
             callback: function (err, data) {
                 if (err) {
                     console.error(err);
+                    errorText.style.display = 'block';
                 } else {
                     getPosts();
                     message.value = '';
-                    username.value = '';
                 }
             }
         })

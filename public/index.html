@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,22 @@
     <title>best thoughts</title>
     <link rel="stylesheet" href="style/main.css">
 </head>
+
 <body>
-    <h1>Our best thoughts</h1>
+    <h1>
+        Our best thoughts
+        <img class="reload" src="img/reload-icon.png" alt="check new messages">
+    </h1>
     <div class="posts"></div>
-    <button class="reload">reload</button>
-    <textarea class="message" placeholder="what's in your mind?.."></textarea>
-    <input type="text" class="username" placeholder="username">
-    <button class="send">send</button>
+
+    <div class="message-wrap">
+        <div class="error">text should less than 200 symbols, username should contain only letters and numbers</div>
+        <input type="text" class="message" placeholder="what's in your mind?.."></input>
+        <input type="text" class="username" placeholder="you name">
+        <button class="send">send</button>
+    </div>
 
     <script src="js/main.js"></script>
 </body>
+
 </html>
