@@ -1,0 +1,86 @@
+{
+	"info": {
+		"name": "publicChatPostmanTest",
+		"_postman_id": "16bfc095-13ad-1092-582f-1def8c78ef57",
+		"description": "test public chat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const post = JSON.parse(responseBody)",
+							"",
+							"tests['body contains message'] = responseBody.has('message');",
+							"tests['body contains username'] = responseBody.has('username');",
+							"",
+							"tests['username is chestas'] = post[0].username === 'chestas';",
+							"tests['message is \"is it good?\"'] = post[0].message === 'is it good?';"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:3000/api/posts",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api/posts"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests['Successful POST request'] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"message\": \"I think yes\",\n\t\"username\": \"younkowwho\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/posts",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api/posts"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

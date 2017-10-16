@@ -1,0 +1,88 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a simple API",
+    "version" : "1.0.0",
+    "title" : "Simple Public Chat API",
+    "contact" : {
+      "email" : "chstas2@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/chestascompany/simpleChat/1.0.0",
+  "tags" : [ {
+    "name" : "users",
+    "description" : "public calls"
+  } ],
+  "schemes" : [ "https", "http" ],
+  "paths" : {
+    "/api/posts" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "get all posts",
+        "description" : "get all posts\n",
+        "operationId" : "getAllPosts",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PostItem"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad request"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "add a post",
+        "description" : "Add an post to the database",
+        "operationId" : "addPost",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "post",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/PostItem"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "item added"
+          },
+          "400" : {
+            "description" : "invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "PostItem" : {
+      "type" : "object",
+      "required" : [ "message", "username" ],
+      "properties" : {
+        "message" : {
+          "type" : "string",
+          "example" : "is it good?"
+        },
+        "username" : {
+          "type" : "string",
+          "example" : "chestas"
+        }
+      }
+    }
+  }
+}

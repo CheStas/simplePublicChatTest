@@ -1,0 +1,23 @@
+public chat
+post text (create post)
+everyone can read ( get posts)
+posts stored in database
+post contain username and text
+before save a post check: 
+ - text is less than 200 symbols
+ - username contain only letters and numbers
+
+ api has 2 endpoints:
+ -get all posts
+ - create post. error if text or username is not valid
+
+ postma collection for testing??
+
+ documentation using swagger ??
+
+ use SQLite with in-memory mode as database
+ Express as REST API
+ Write tests for endpoints
+ Use Sequelize or another ORM
+ Deploy using Digital Ocean
+ Use docker container and deploy using CI/CD (for example Wercker).
