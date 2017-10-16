@@ -1,22 +1,53 @@
-const sqlite3 = require('sqlite3').verbose();
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+const operatorsAliases = {
+    $all: Op.all,
+};
 
-const db = new sqlite3.Database(':memory:', err => {
-    if (err) {
-        return console.error(err.message);
-    }
-    console.log('Connected to the in-memory SQlite database.');
+const sequelize = new Sequelize('database', 'username', 'password', {
+    host: 'localhost',
+    dialect: 'sqlite',
+    operatorsAliases,
+
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+    },
+    storage: ':memory:'
 });
 
-db.run('CREATE TABLE posts(message text, username text)', err => {
-    if (err) {
-        return console.error(err.message);
-    }
-    db.run(`INSERT INTO posts (message, username) VALUES (?, ?)`, ['is it good?', 'chestas'], function (err) {
-        if (err) {
-            return console.error(err.message);
-        }
-        console.log(`A row has been inserted with rowid ${this.lastID}`);
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
     });
+
+const Post = sequelize.define('post', {
+    message: {
+        type: Sequelize.STRING
+    },
+    username: {
+        type: Sequelize.STRING
+    }
 });
 
-module.exports = db;
+Post
+    .sync({ force: true })
+    .then(() => {
+        return Post.create({
+            message: 'is it good?',
+            username: 'chestas'
+        })
+    })
+    .then(() => {
+        return Post.findAll()
+    })
+    .then(posts => {
+        console.log(posts)
+    });
+
+module.exports = Post;

@@ -2,11 +2,15 @@
     "name": "simple-chat",
     "version": "0.0.1",
     "scripts": {
-        "dev": "node ."
+        "dev": "node .",
+        "test": "./node_modules/.bin/mocha --reporter spec"
     },
     "dependencies": {
         "body-parser": "^1.18.2",
         "express": "^4.16.2",
+        "mocha": "^4.0.1",
+        "request": "^2.83.0",
+        "sequelize": "^4.14.0",
         "sqlite3": "^3.1.13"
     }
 }

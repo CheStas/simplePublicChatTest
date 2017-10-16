@@ -1,34 +1,38 @@
-const db = require('./../db/sqliteConnect');
+const Post = require('./../db/sqliteConnect');
 
 module.exports = {
     getPosts: (cb) => {
-        const err = null,
-            sql = `SELECT message message, username username FROM posts`;
-
-        db.all(sql, [], (error, rows) => {
-            if (error) {
-                err = new Error(error.message);
-            }
-            cb(err, rows);
-        });
+        const error = null;
+        Post.findAll()
+            .then(posts => {
+                cb(null, posts);
+            })
+            .catch(err => {
+                error = new Error(err.message);
+                cb(error);
+            })
     },
 
     insertPost: (data, cb) => {
-        const err = null,
+        const error = null,
             text = data.message,
             username = data.username;
 
         if (checkTextLength(text) && checkUsername(username)) {
-            db.run(`INSERT INTO posts (message, username) VALUES (?, ?)`, [text, username], function (error) {
-                if (error) {
-                    err = new Error(error.message);
-                } else {
-                    console.log(`A row has been inserted with rowid ${this.lastID}`);
-                }
-                cb(err);
-            });
+            Post.create({
+                message: text,
+                username: username
+            })
+                .then(posts => {
+                    console.log('post added');
+                    cb(error);
+                })
+                .catch(err => {
+                    error = new Error(err.message);
+                    cb(error);
+                });
         } else {
-            cb('not valid data');
+            cb(new Error('not valid data'));
         }
     }
 };
