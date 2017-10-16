@@ -14,3 +14,7 @@
 #### links
 - [Postman collection for testing](publicChatTest.postman_collection)
 - [Documentation using swagger](swagger.json)
+- deployed on heroku with wercker https://simplepublicchat.herokuapp.com/
+- wercker https://app.wercker.com/chestas/simplePublicChatTest/runs
+- get all posts: GET api/posts
+- create post: POST api/posts
