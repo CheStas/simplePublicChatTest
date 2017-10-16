@@ -2,7 +2,7 @@
     "name": "simple-chat",
     "version": "0.0.1",
     "scripts": {
-        "dev": "node .",
+        "start": "node .",
         "test": "./node_modules/.bin/mocha --reporter spec"
     },
     "dependencies": {
